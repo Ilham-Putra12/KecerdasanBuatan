@@ -1,0 +1,51 @@
+class FamilyTree:
+    def __init__(self):
+        self.tree = {}
+
+    def add_member(self, name, parents=None):
+        self.tree[name] = {
+            "parents": parents if parents else [],
+            "children": []
+        }
+        if parents:
+            for parent in parents:
+                if parent in self.tree:
+                    self.tree[parent]["children"].append(name)
+                else:
+                    self.tree[parent] = {"parents": [], "children": [name]}
+
+    def display_tree(self):
+        for member, details in self.tree.items():
+            print(f"Name: {member}")
+            print(f"  Parents: {', '.join(details['parents']) if details['parents'] else 'None'}")
+            print(f"  Children: {', '.join(details['children']) if details['children'] else 'None'}")
+            print()
+
+# Membuat silsilah keluarga berdasarkan gambar
+family = FamilyTree()
+
+# Generasi pertama
+family.add_member("Hadi")
+family.add_member("Retno")
+
+# Generasi kedua
+family.add_member("Ilham", ["Hadi", "Retno"])
+family.add_member("Desi", ["Hadi", "Retno"])
+family.add_member("Wahyu", ["Hadi", "Retno"])
+family.add_member("Ardi", ["Hadi", "Retno"])
+
+# Generasi ketiga
+family.add_member("Fahrul", ["Ilham", "Desi"])
+family.add_member("Nurul", ["Ilham", "Desi"])
+family.add_member("Yanto", ["Bayu", "Desi"])
+family.add_member("Hamzah", ["Wahyu", "Rina"])
+family.add_member("Eka", ["Wahyu", "Rina"])
+family.add_member("Bastian", ["Ardi", "Ana"])
+
+# Generasi keempat
+family.add_member("Wanda", ["Fahrul", "Tari"])
+family.add_member("Anggun", ["Eka", "Mira"])
+family.add_member("Boy", ["Bastian"])
+
+# Menampilkan silsilah keluarga
+family.display_tree()
